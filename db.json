@@ -1,0 +1,23 @@
+{
+  "posts": [
+    {
+      "id": 2,
+      "firstName": "Mpho",
+      "lastName": "Ditibane",
+      "contactNumber": "0672070362",
+      "emailAddress": "mphditibane40@gmail.com",
+      "dateOfBirth": "2022-07-20T22:00:00.000Z",
+      "streetAddress": "15 Iceland street",
+      "city": "Randburg",
+      "postalCode": "2187",
+      "country": "South Africa",
+      "skill": null,
+      "yearsExp": null,
+      "seniorityRate": null
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

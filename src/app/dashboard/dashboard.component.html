@@ -1,0 +1,213 @@
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Employees</h4>
+        <span *ngIf="hideEmp" style="color: #FFF">No employees</span>
+        <span *ngIf="showEmp" style="color: #FFF">There's are {{numberOfEmp}} employees</span>
+      </div>
+      <div class="col-md-4">        
+        <div class="form-group has-search" *ngIf="showEmp">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input type="text"style="background-color: transparent; color:white;" class="form-control" [(ngModel)]="terms" placeholder="Serach"/>
+        </div>
+      </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-6">
+         
+              <button *ngIf="showEmp" class="btn outline-primary dropdown-toggle floatBtn" style="color: #FFF;" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+               filter
+              </button>
+
+          
+          <!-- <div class="col-md-6">
+            <p>filter</p>
+          </div>
+          <div class="col-md-2">
+            <select [(ngModel)]="selectedValue" (change)="valueSelected()">
+              <option *ngFor="let item of empDropdown">{{ item }}</option>
+            </select>
+          </div> -->
+        </div>
+      <div class="col-md-6">
+            <button type="button" id="openModalEdit" class="btn btnNewEmployee" (click)="openModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+              </svg>
+              New Employee
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row fieldBoarder" *ngFor="let emp of employeeData | search:terms; let i = index">
+      <div class="col-md-2 textAlignment">
+        <p class="titlecolor"><span class="numberCircle">{{i +1 }}</span>{{emp.firstName}}
+        </p>
+      </div>
+      <div class="col-md-2 textAlignment">
+          <p class="titlecolor">{{emp.lastName}}</p>        
+      </div>
+      <div class="col-md-2 textAlignment" >
+          <p class="titlecolor">{{emp.contactNumber}}</p>
+      </div>
+      <div class="col-md-4">
+          <div class="row">
+              <div class="col-md-4">
+                <!--<button type="button" class="btn btn-danger" (click)="deleteRecord(emp)">Delete</button>-->
+                <img class="iconEdit" width="16" height="16" (click)="deleteRecord(emp)" src="../../assets/delete-icon.png" />
+              </div>
+              <div class="col-md-4">
+                <!--<button type="button"  class="btn btn-secondary" (click)="editRecord(emp)">Edit</button>-->
+                <img class="iconEdit" width="16" height="16" (click)="editRecord(emp)" src="../../assets/icons8-edit-120.png" />
+                
+              </div>
+          </div>
+      </div>
+  </div>
+  <br>
+</div>
+<div class="row" *ngIf="hideEmp">
+  <div class="col-md-12 box">
+    <p style="margin-bottom: 350px;"></p>
+  </div>
+  <div class="col-md-12">
+    <p style="text-align: center; color: #FFF;">There's nothing here<br>
+    Create a new employee by clicking<br>New Employee button to get started</p>
+  </div>
+</div>
+</div>
+
+  
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 *ngIf="showSubmit" class="modal-title">New Employee</h4>
+                <h4 *ngIf="showUpdate" class="modal-title">Edit Employee</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formValue">
+                    <div class="col">
+                      <p class="heading">Basic Info</p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="inputFirstName">First Name</label>
+                          <input type="text" formControlName="firstName" class="form-control" id="inputFirstName" placeholder="First Name">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputLastName">Last Name</label>
+                          <input type="text" formControlName="lastName" class="form-control" id="inputLastName" placeholder="Last Name">
+                        </div>
+                      </div>
+                     
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                      <label for="contactnumber">Contact Number</label>
+                      <input type="text" formControlName="contactNumber" class="form-control" id="contactnumber" placeholder="0835465656">
+                    </div>
+                    <div class="col-md-12">
+                      <label for="inputAddress2">Email Address</label>
+                      <input type="text" formControlName="emailAddress" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inputAddress2">Date of Birth</label>
+                      <mat-form-field>
+                        <input class="form-control" style="height: 34px;border: 1px solid #ced4da;" formControlName="dateOfBirth" matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <p class="heading">Address Info</p>
+                      <div class="form-group col-md-12">
+                        <label for="streetAddress">Street Address</label>
+                        <input type="text" formControlName="streetAddress" class="form-control" id="streetAddress">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="City">City</label>
+                        <input type="text" formControlName="city" class="form-control" id="city">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="postalCode">Postal Code</label>
+                        <input type="text" formControlName="postalCode" class="form-control" id="postalCode">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="country">Country</label>
+                        <input type="text" formControlName="country" class="form-control" id="country">
+                      </div>
+                      </div>
+                      <div class="form-group" formArrayName="skills">
+                        <hr>
+                          <div class="col-md-12" *ngFor="let skillItem of skillsArray.controls; let i = index;"[formGroupName]="i">
+                            <p class="heading">Skills</p>
+                            <div class="row">
+                            <div class="form-group col-md-4">
+                              <label for="country">Skill</label>
+                              <input type="text" formControlName="skill" class="form-control" id="country">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="country">Yrs Exp</label>
+                              <input type="text" formControlName="yearsExp" class="form-control" id="country">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <div class="row">
+                                
+                                <div class="col-md-10">
+                                  <label for="country">Seniority Rating</label>
+                                  <select class="form-control inputField" formControlName="seniorityRate">
+                                    <option>Beginner</option>
+                                    <option>Experienced</option>
+                                    <option>Expert</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-2 float-right">
+                                  <img class="iconcolor" width="16" height="16" (click)="deleteSkillField(i)" src="../../assets/delete-icon.png" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col text-center">
+                          <button type="button" class="btn btnAddEmployee" (click)="addSkillsGroup()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+                            add skills
+                        </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                           <button type="button" class="btn btn-default" id="cancel" (click)="onCloseHandled()" >Close</button>
+                           <!--<button type="button" class="btn btn-primary" *ngIf="showSubmit" (click)="postEmployeeDetails()">Submit</button>
+                           <button type="button" class="btn btn-primary" *ngIf="showUpdate" (click)="updateEmployeeDetails()">Update</button>-->
+
+                           <button type="button"  class="btn btnNewEmployee" *ngIf="showSubmit" (click)="postEmployeeDetails()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+                            Submit
+                        </button>
+                        <button type="button" class="btn btnNewEmployee" *ngIf="showUpdate" (click)="updateEmployeeDetails()">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                          </svg>
+                          Update
+                      </button>
+              </div>
+            </div>
+        </div>
+ </div>
