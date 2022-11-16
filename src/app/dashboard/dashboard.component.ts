@@ -192,6 +192,7 @@ export class DashboardComponent implements OnInit {
     this.employees = this.employeeApi.getEmployeeInfo().forEach(
       item => item.id === this.selectedValue);
   }
+
 }
 
 
