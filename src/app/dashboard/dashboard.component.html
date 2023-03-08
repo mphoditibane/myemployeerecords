@@ -95,13 +95,17 @@
                     <div class="col">
                       <p class="heading">Basic Info</p>
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" >
                           <label for="inputFirstName">First Name</label>
                           <input type="text" formControlName="firstName" class="form-control" id="inputFirstName" placeholder="First Name">
+                          <span *ngIf="!formValue.get('firstName')?.valid && formValue.get('firstName')?.touched"
+                          class="help-block">Please enter a valid name</span>
                         </div>
                         <div class="col-md-6">
                           <label for="inputLastName">Last Name</label>
                           <input type="text" formControlName="lastName" class="form-control" id="inputLastName" placeholder="Last Name">
+                          <span *ngIf="!formValue.get('lastName')?.valid && formValue.get('lastName')?.touched"
+                          class="help-block">Please enter a valid last name</span>
                         </div>
                       </div>
                      
@@ -110,10 +114,14 @@
                     <div class="col-md-12">
                       <label for="contactnumber">Contact Number</label>
                       <input type="text" formControlName="contactNumber" class="form-control" id="contactnumber" placeholder="0835465656">
+                      <span *ngIf="!formValue.get('contactNumber')?.valid && formValue.get('contactNumber')?.touched"
+                          class="help-block">Please enter a valid contact number</span>
                     </div>
                     <div class="col-md-12">
                       <label for="inputAddress2">Email Address</label>
                       <input type="text" formControlName="emailAddress" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                      <span *ngIf="!formValue.get('emailAddress')?.valid && formValue.get('emailAddress')?.touched"
+                          class="help-block">Please enter a valid email address</span>
                     </div>
                     <div class="col-md-6">
                       <label for="inputAddress2">Date of Birth</label>
@@ -122,6 +130,8 @@
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
+                      <span *ngIf="!formValue.get('dateOfBirth')?.valid && formValue.get('dateOfBirth')?.touched"
+                          class="help-block">Please enter date of birth</span>
                     </div>
                   </div>
                     <div class="row">
@@ -129,18 +139,26 @@
                       <div class="form-group col-md-12">
                         <label for="streetAddress">Street Address</label>
                         <input type="text" formControlName="streetAddress" class="form-control" id="streetAddress">
+                        <span *ngIf="!formValue.get('streetAddress')?.valid && formValue.get('streetAddress')?.touched"
+                          class="help-block">Please enter street address</span>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="City">City</label>
                         <input type="text" formControlName="city" class="form-control" id="city">
+                        <span *ngIf="!formValue.get('city')?.valid && formValue.get('city')?.touched"
+                          class="help-block">Please enter city</span>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="postalCode">Postal Code</label>
                         <input type="text" formControlName="postalCode" class="form-control" id="postalCode">
+                        <span *ngIf="!formValue.get('postalCode')?.valid && formValue.get('postalCode')?.touched"
+                          class="help-block">Please enter postal code</span>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="country">Country</label>
                         <input type="text" formControlName="country" class="form-control" id="country">
+                        <span *ngIf="!formValue.get('country')?.valid && formValue.get('country')?.touched"
+                          class="help-block">Please enter country</span>
                       </div>
                       </div>
                       <div class="form-group" formArrayName="skills">
@@ -148,37 +166,36 @@
                           <div class="col-md-12" *ngFor="let skillItem of skillsArray.controls; let i = index;"[formGroupName]="i">
                             <p class="heading">Skills</p>
                             <div class="row">
-                            <div class="form-group col-md-4">
-                              <label for="country">Skill</label>
-                              <input type="text" formControlName="skill" class="form-control" id="country">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="country">Yrs Exp</label>
-                              <input type="text" formControlName="yearsExp" class="form-control" id="country">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <div class="row">
-                                
-                                <div class="col-md-10">
-                                  <label for="country">Seniority Rating</label>
-                                  <select class="form-control inputField" formControlName="seniorityRate">
-                                    <option>Beginner</option>
-                                    <option>Experienced</option>
-                                    <option>Expert</option>
-                                  </select>
+                                <div class="form-group col-md-4">
+                                  <label for="country">Skill</label>
+                                  <input type="text" formControlName="skill" class="form-control" id="country">
                                 </div>
-                                <div class="col-md-2 float-right">
-                                  <img class="iconcolor" width="16" height="16" (click)="deleteSkillField(i)" src="../../assets/delete-icon.png" />
+                                <div class="form-group col-md-4">
+                                  <label for="country">Yrs Exp</label>
+                                  <input type="text" formControlName="yearsExp" class="form-control" id="country">
                                 </div>
-                              </div>
-                            </div>
+                                <div class="form-group col-md-4">
+                                  <div class="row">
+                                    <div class="col-md-10">
+                                      <label for="country">Seniority Rating</label>
+                                      <select class="form-control inputField" formControlName="seniorityRate">
+                                        <option>Beginner</option>
+                                        <option>Experienced</option>
+                                        <option>Expert</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-2 float-right">
+                                      <img class="iconcolor" width="16" height="16" (click)="deleteSkillField(i)" src="../../assets/delete-icon.png" />
+                                    </div>
+                                  </div>
+                                </div>
                           </div>
                         </div>
                     </div>
                     <hr>
                     <div class="container">
                       <div class="row">
-                        <div class="col text-center">
+                        <div class="col-md-12">
                           <button type="button" class="btn btnAddEmployee" (click)="addSkillsGroup()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>

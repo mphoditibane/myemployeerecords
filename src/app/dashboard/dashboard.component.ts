@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 import { DashboardModal } from './dashboard.modal';
 
@@ -29,15 +29,15 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     
     this.formValue = this.formbuilder.group({
-      firstName : [''],
-      lastName : [''],
-      contactNumber: [''],
-      emailAddress: [''],
-      dateOfBirth: [''],
-      streetAddress: [''],
-      city: [''],
-      postalCode: [''],
-      country: [''],
+      firstName : ['', Validators.required],
+      lastName : ['', Validators.required],
+      contactNumber: ['', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
+      emailAddress: ['',[Validators.required, Validators.email]],
+      dateOfBirth: ['', Validators.required],
+      streetAddress: ['', Validators.required],
+      city: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      country: ['', Validators.required],
       skill: [''],
       yearsExp: [''],
       seniorityRate: [''],
@@ -70,31 +70,35 @@ export class DashboardComponent implements OnInit {
 
   // Submit Function to add new record
   postEmployeeDetails() {
-    this.dashboardEmploObj.firstName = this.formValue.value.firstName;
-    this.dashboardEmploObj.lastName = this.formValue.value.lastName;
-    this.dashboardEmploObj.contactNumber = this.formValue.value.contactNumber;
-    this.dashboardEmploObj.emailAddress = this.formValue.value.emailAddress;
-    this.dashboardEmploObj.dateOfBirth = this.formValue.value.dateOfBirth;
-    this.dashboardEmploObj.streetAddress = this.formValue.value.streetAddress;
-    this.dashboardEmploObj.city = this.formValue.value.city;
-    this.dashboardEmploObj.postalCode = this.formValue.value.postalCode;
-    this.dashboardEmploObj.country = this.formValue.value.country;
-    this.dashboardEmploObj.skill = this.formValue.value.skill;
-    this.dashboardEmploObj.yearsExp = this.formValue.value.yearsExp;
-    this.dashboardEmploObj.seniorityRate = this.formValue.value.seniorityRate;
-    
-    //posting data to the postEmployeeInfo function
-    this.employeeApi.postEmployeeInfo(this.dashboardEmploObj)
-     .subscribe(res=>{
-       console.log(res);
-       alert('sucessfull added data');
-       let cancelForm = document.getElementById('cancel');
-       cancelForm?.click();
-       this.formValue.reset();
-       this.getAllEmployeeInfo();
-     })
-
-   console.log('values',this.formValue.value) 
+      if(this.formValue.valid){
+        this.dashboardEmploObj.firstName = this.formValue.value.firstName;
+        this.dashboardEmploObj.lastName = this.formValue.value.lastName;
+        this.dashboardEmploObj.contactNumber = this.formValue.value.contactNumber;
+        this.dashboardEmploObj.emailAddress = this.formValue.value.emailAddress;
+        this.dashboardEmploObj.dateOfBirth = this.formValue.value.dateOfBirth;
+        this.dashboardEmploObj.streetAddress = this.formValue.value.streetAddress;
+        this.dashboardEmploObj.city = this.formValue.value.city;
+        this.dashboardEmploObj.postalCode = this.formValue.value.postalCode;
+        this.dashboardEmploObj.country = this.formValue.value.country;
+        this.dashboardEmploObj.skill = this.formValue.value.skill;
+        this.dashboardEmploObj.yearsExp = this.formValue.value.yearsExp;
+        this.dashboardEmploObj.seniorityRate = this.formValue.value.seniorityRate;
+      
+        //posting data to the postEmployeeInfo function
+        this.employeeApi.postEmployeeInfo(this.dashboardEmploObj)
+        .subscribe(res=>{
+          console.log(res);
+          alert('sucessfull added data');
+          let cancelForm = document.getElementById('cancel');
+          cancelForm?.click();
+          this.formValue.reset();
+          this.getAllEmployeeInfo();
+        });
+        console.log('values',this.formValue.value) 
+        return
+        } else{
+          alert("Fill in all required field");
+        }
   }
 
   //function to collect all data from json data
@@ -194,5 +198,3 @@ export class DashboardComponent implements OnInit {
   }
 
 }
-
-
