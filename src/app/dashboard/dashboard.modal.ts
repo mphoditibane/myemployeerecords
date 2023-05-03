@@ -12,7 +12,11 @@ export class DashboardModal{
     skill: string = '';
     yearsExp: number = 0;
     seniorityRate: string = '';
-    //skills: Skill [];
+    // skills: {
+    //     skill: string;
+    //     yearsExp: number;
+    //     seniorityRate: string;
+    // };
 
 }
 

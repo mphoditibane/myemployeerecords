@@ -29,18 +29,15 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     
     this.formValue = this.formbuilder.group({
-      firstName : ['', Validators.required],
-      lastName : ['', Validators.required],
-      contactNumber: ['', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
-      emailAddress: ['',[Validators.required, Validators.email]],
-      dateOfBirth: ['', Validators.required],
-      streetAddress: ['', Validators.required],
-      city: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      country: ['', Validators.required],
-      skill: [''],
-      yearsExp: [''],
-      seniorityRate: [''],
+      firstName : [''],
+      lastName : [''],
+      contactNumber: [''],
+      emailAddress: [''],
+      dateOfBirth: [''],
+      streetAddress: [''],
+      city: [''],
+      postalCode: [''],
+      country: [''],
       skills: this.formbuilder.array([this.addSkills()])
     });
     this.getAllEmployeeInfo();
@@ -49,11 +46,15 @@ export class DashboardComponent implements OnInit {
   /***Create form array fields */
   addSkills() {
     return this.formbuilder.group({
-      skill: [''],
-      yearsExp: [''],
-      seniorityRate: ['']
+      skill: '',
+      yearsExp: '',
+      seniorityRate: ''
     });
   }
+  get skillsArray() {
+    return this.formValue.get('skills') as FormArray;
+  }
+
   addSkillsGroup() {
     this.skillsArray.push(this.addSkills());
   }
@@ -62,15 +63,13 @@ export class DashboardComponent implements OnInit {
   deleteSkillField(index: any) {
     this.skillsArray.removeAt(index);
   }
-  get skillsArray() {
-    return<FormArray>this.formValue.get('skills');
-  }
   /**End*/
 
 
   // Submit Function to add new record
   postEmployeeDetails() {
       if(this.formValue.valid){
+        console.log('te',this.skillsArray.value[0].seniorityRate);
         this.dashboardEmploObj.firstName = this.formValue.value.firstName;
         this.dashboardEmploObj.lastName = this.formValue.value.lastName;
         this.dashboardEmploObj.contactNumber = this.formValue.value.contactNumber;
@@ -80,11 +79,12 @@ export class DashboardComponent implements OnInit {
         this.dashboardEmploObj.city = this.formValue.value.city;
         this.dashboardEmploObj.postalCode = this.formValue.value.postalCode;
         this.dashboardEmploObj.country = this.formValue.value.country;
-        this.dashboardEmploObj.skill = this.formValue.value.skill;
-        this.dashboardEmploObj.yearsExp = this.formValue.value.yearsExp;
-        this.dashboardEmploObj.seniorityRate = this.formValue.value.seniorityRate;
+        this.dashboardEmploObj.skill = this.skillsArray.value[0].skill;
+        this.dashboardEmploObj.yearsExp = this.skillsArray.value[0].yearsExp;
+        this.dashboardEmploObj.seniorityRate = this.skillsArray.value[0].seniorityRate;
       
         //posting data to the postEmployeeInfo function
+        console.log('all', this.dashboardEmploObj);
         this.employeeApi.postEmployeeInfo(this.dashboardEmploObj)
         .subscribe(res=>{
           console.log(res);
@@ -154,6 +154,7 @@ export class DashboardComponent implements OnInit {
   
   //function to update records 
   updateEmployeeDetails(){
+    
     this.dashboardEmploObj.firstName = this.formValue.value.firstName;
     this.dashboardEmploObj.lastName = this.formValue.value.lastName;
     this.dashboardEmploObj.contactNumber = this.formValue.value.contactNumber;
@@ -163,9 +164,10 @@ export class DashboardComponent implements OnInit {
     this.dashboardEmploObj.city = this.formValue.value.city;
     this.dashboardEmploObj.postalCode = this.formValue.value.postalCode;
     this.dashboardEmploObj.country = this.formValue.value.country;
-    this.dashboardEmploObj.skill = this.formValue.value.skill;
-    this.dashboardEmploObj.yearsExp = this.formValue.value.yearsExp;
-    this.dashboardEmploObj.seniorityRate = this.formValue.value.seniorityRate;
+    this.dashboardEmploObj.skill = this.skillsArray.value[0].skill;
+    this.dashboardEmploObj.yearsExp = this.skillsArray.value[0].yearsExp;
+    this.dashboardEmploObj.seniorityRate = this.skillsArray.value[0].seniorityRate;
+   
 
     //updating data to the updateEmployeeInfo function
     this.employeeApi.updateEmployeeInfo(this.dashboardEmploObj,this.dashboardEmploObj.id)
