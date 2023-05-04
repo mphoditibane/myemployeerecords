@@ -141,10 +141,8 @@ export class DashboardComponent implements OnInit {
     this.showSubmit = false;
     this.showUpdate = true;
     this.dashboardEmploObj.id = emp.id;
-    console.log('formarray', this.formValue.get('skills') as FormArray);
-    const formControlValues = this.formValue.get('skills') as FormArray;
-    const fArrayValues = formControlValues.controls[0];
-    console.log('f', formControlValues.controls.length);
+    
+
 
     this.formValue.controls['firstName'].setValue(emp.firstName);
     this.formValue.controls['lastName'].setValue(emp.lastName);
@@ -155,6 +153,8 @@ export class DashboardComponent implements OnInit {
     this.formValue.controls['city'].setValue(emp.city);
     this.formValue.controls['postalCode'].setValue(emp.postalCode);
     this.formValue.controls['country'].setValue(emp.country);
+    
+    const formControlValues = this.formValue.get('skills') as FormArray;
     for(let i = 0; i < formControlValues.controls.length; i++) {
       formControlValues.controls[i].setValue({
         skill:emp.skill,
