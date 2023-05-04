@@ -68,6 +68,7 @@ export class DashboardComponent implements OnInit {
 
   // Submit Function to add new record
   postEmployeeDetails() {
+    console.log('length',  this.skillsArray.value.length);
       if(this.formValue.valid){
         console.log('te',this.skillsArray.value[0].seniorityRate);
         this.dashboardEmploObj.firstName = this.formValue.value.firstName;
@@ -79,10 +80,12 @@ export class DashboardComponent implements OnInit {
         this.dashboardEmploObj.city = this.formValue.value.city;
         this.dashboardEmploObj.postalCode = this.formValue.value.postalCode;
         this.dashboardEmploObj.country = this.formValue.value.country;
-        this.dashboardEmploObj.skill = this.skillsArray.value[0].skill;
-        this.dashboardEmploObj.yearsExp = this.skillsArray.value[0].yearsExp;
-        this.dashboardEmploObj.seniorityRate = this.skillsArray.value[0].seniorityRate;
-      
+        for (let i = 0; i < this.skillsArray.value.length; i++) {
+          console.log('i', i);
+          this.dashboardEmploObj.skill = this.skillsArray.value[i].skill;
+          this.dashboardEmploObj.yearsExp = this.skillsArray.value[i].yearsExp;
+          this.dashboardEmploObj.seniorityRate = this.skillsArray.value[i].seniorityRate;
+        }
         //posting data to the postEmployeeInfo function
         console.log('all', this.dashboardEmploObj);
         this.employeeApi.postEmployeeInfo(this.dashboardEmploObj)
@@ -137,7 +140,12 @@ export class DashboardComponent implements OnInit {
     
     this.showSubmit = false;
     this.showUpdate = true;
-    this.dashboardEmploObj.id = emp.id
+    this.dashboardEmploObj.id = emp.id;
+    console.log('formarray', this.formValue.get('skills') as FormArray);
+    const formControlValues = this.formValue.get('skills') as FormArray;
+    const fArrayValues = formControlValues.controls[0];
+    console.log('f', formControlValues.controls.length);
+
     this.formValue.controls['firstName'].setValue(emp.firstName);
     this.formValue.controls['lastName'].setValue(emp.lastName);
     this.formValue.controls['contactNumber'].setValue(emp.contactNumber);
@@ -147,9 +155,13 @@ export class DashboardComponent implements OnInit {
     this.formValue.controls['city'].setValue(emp.city);
     this.formValue.controls['postalCode'].setValue(emp.postalCode);
     this.formValue.controls['country'].setValue(emp.country);
-    this.formValue.controls['skill'].setValue(emp.skill);
-    this.formValue.controls['yearsExp'].setValue(emp.yearsExp);
-    this.formValue.controls['seniorityRate'].setValue(emp.seniorityRate);
+    for(let i = 0; i < formControlValues.controls.length; i++) {
+      formControlValues.controls[i].setValue({
+        skill:emp.skill,
+        yearsExp:emp.yearsExp,
+        seniorityRate:emp.seniorityRate
+      });
+    }
   }
   
   //function to update records 
@@ -164,9 +176,11 @@ export class DashboardComponent implements OnInit {
     this.dashboardEmploObj.city = this.formValue.value.city;
     this.dashboardEmploObj.postalCode = this.formValue.value.postalCode;
     this.dashboardEmploObj.country = this.formValue.value.country;
-    this.dashboardEmploObj.skill = this.skillsArray.value[0].skill;
-    this.dashboardEmploObj.yearsExp = this.skillsArray.value[0].yearsExp;
-    this.dashboardEmploObj.seniorityRate = this.skillsArray.value[0].seniorityRate;
+    for (let i = 0; i < this.skillsArray.value.length; i++) {
+      this.dashboardEmploObj.skill = this.skillsArray.value[i].skill;
+      this.dashboardEmploObj.yearsExp = this.skillsArray.value[i].yearsExp;
+      this.dashboardEmploObj.seniorityRate = this.skillsArray.value[i].seniorityRate;
+    }
    
 
     //updating data to the updateEmployeeInfo function

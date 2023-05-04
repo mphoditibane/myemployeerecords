@@ -1,49 +1,34 @@
 {
   "posts": [
     {
+      "id": 1,
+      "firstName": "Mpho",
+      "lastName": "Ditibane",
+      "contactNumber": "0672070362",
+      "emailAddress": "mphditibane40@gmail.com",
+      "dateOfBirth": "2023-05-03T22:00:00.000Z",
+      "streetAddress": "15 Iceland street",
+      "city": "Randburg",
+      "postalCode": "2187",
+      "country": "South Africa",
+      "skill": "klksjks",
+      "yearsExp": "444",
+      "seniorityRate": "Experienced"
+    },
+    {
       "id": 2,
       "firstName": "Mpho",
       "lastName": "Ditibane",
       "contactNumber": "0672070362",
       "emailAddress": "mphditibane40@gmail.com",
-      "dateOfBirth": "2022-11-16T22:00:00.000Z",
+      "dateOfBirth": "2023-05-04T22:00:00.000Z",
       "streetAddress": "15 Iceland street",
       "city": "Randburg",
       "postalCode": "2187",
       "country": "South Africa",
-      "skill": null,
-      "yearsExp": null,
-      "seniorityRate": null
-    },
-    {
-      "id": 3,
-      "firstName": "Mpho",
-      "lastName": "Ditibane",
-      "contactNumber": "0672070362",
-      "emailAddress": "mphditibane40@gmail.com",
-      "dateOfBirth": "2022-11-15T22:00:00.000Z",
-      "streetAddress": "15 Iceland street",
-      "city": "Randburg",
-      "postalCode": "2187",
-      "country": "South Africa",
-      "skill": null,
-      "yearsExp": null,
-      "seniorityRate": null
-    },
-    {
-      "id": 4,
-      "firstName": "Mpho",
-      "lastName": "Ditibane",
-      "contactNumber": "0672070362",
-      "emailAddress": "mphditibane40@gmail.com",
-      "dateOfBirth": "2023-05-02T22:00:00.000Z",
-      "streetAddress": "15 Iceland street",
-      "city": "Randburg",
-      "postalCode": "2187",
-      "country": "South Africa",
-      "skill": "ffdsdff",
-      "yearsExp": "2012",
-      "seniorityRate": "Expert"
+      "skill": "mpho",
+      "yearsExp": "545",
+      "seniorityRate": "Experienced"
     }
   ],
   "comments": [],
